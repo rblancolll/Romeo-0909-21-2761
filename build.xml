@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="RomeoB+0909-21-2761" default="default" basedir=".">
-    <description>Builds, tests, and runs the project RomeoB+0909-21-2761.</description>
+<project name="Romeo+0909-21-2761" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Romeo+0909-21-2761.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

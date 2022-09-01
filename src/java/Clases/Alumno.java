@@ -8,13 +8,16 @@ public class Alumno {
     private String codigo;
     private String nombre;
     private String correo;
-    private String direccion;
-    private String apellido;
-    private String telefono;
+  
     
-    public Alumno(){
-        this.nombre="Alumno de ejemplo";
+    public Alumno(String codigo, String nombre, String correo){
+        this.codigo=codigo;
+        this.nombre=nombre;
+        this.correo=correo;     
     }
+
+   
+    
 
     public String getCodigo() {
         return codigo;
@@ -32,7 +35,8 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
+    
+     public String getCorreo() {
         return correo;
     }
 
@@ -40,29 +44,5 @@ public class Alumno {
         this.correo = correo;
     }
     
-    
-    public String getDireccion() {
-        return direccion;
-    }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-    
-     public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-    
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-    
 }

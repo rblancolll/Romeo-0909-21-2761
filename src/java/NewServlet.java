@@ -1,67 +1,82 @@
 import Clases.Alumno;
+import Clases.ClienteController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static org.apache.coyote.http11.Constants.a;
 
 /**
  *
- * @author Fernanda Cordón
+ * @author JP
  */
-
-
 @WebServlet(urlPatterns = {"/NewServlet"})
 public class NewServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
     Alumno alumno;
-    
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    ClienteController registroAlumno;
+     Alumno[] alumnosRegistrados;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter respuesta = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            respuesta.println("<!DOCTYPE html>");
-            respuesta.println("<link rel=stylesheet href=CSS/css.css media=all >");
-            respuesta.println("<html>");
-            alumno=new Alumno();    
-            alumno.setCodigo(request.getParameter("codigo"));
-            alumno.setNombre(request.getParameter("nombre"));
-            alumno.setApellido(request.getParameter("apellido"));
-            alumno.setDireccion(request.getParameter("direccion"));
-            alumno.setCorreo(request.getParameter("correo"));
-            alumno.setTelefono(request.getParameter("telefono"));
+            
+            
+            alumno=new Alumno(
+                request.getParameter("codigo"),
+                request.getParameter("nombre"),
+                request.getParameter("correo")
+            );               
+            
+            if(registroAlumno==null){
+                 registroAlumno=new ClienteController();
+            }
+           
+            registroAlumno.guardarAlumno(alumno);//almacenarlo en el array
+             alumnosRegistrados= registroAlumno.getAlumnos();
+            
             respuesta.println("<!DOCTYPE html>");
             respuesta.println("<html>");
             respuesta.println("<head>");
-            respuesta.println("<title>Cliente</title>");            
+            respuesta.println("<title>Servlet NewServlet</title>");   
+            respuesta.println("<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css' integrity='sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N' crossorigin='anonymous'>");
+            respuesta.println("<script src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct' crossorigin='anonymous'></script>");
             respuesta.println("</head>");
-            respuesta.println("<body>");
-            respuesta.println("<h1> Cliente " + request.getContextPath() + "</h1>");
-            respuesta.println("<h1>Datos del cliente registrado, gracias por registrarse </h1><br>");         
-            respuesta.println("<h2>" + "Código: "+ alumno.getCodigo() + "</h2>");
-            respuesta.println("<h2>" + "Nombre: "+ alumno.getNombre() + "</h2>");
-            respuesta.println("<h2>" + "Apellido: "+ alumno.getApellido() + "</h2>");
-            respuesta.println("<h2>" + "Dirección: "+alumno.getDireccion() + "</h2>");
-            respuesta.println("<h2>" + "Correo: "+ alumno.getCorreo() + "</h2>");
-            respuesta.println("<h2>" + "Teléfono: "+ alumno.getTelefono() + "</h2><br>");
-            respuesta.println("<center>CLIENTE1 </center><br>");  
-            respuesta.println("<!DOCTYPE html>");
-            respuesta.println("<a href= 'index2.html'> Registrar nuevo cliente </a><br>"); 
-            respuesta.println("<!DOCTYPE html>");
-            respuesta.println("<a href= 'index.html'> Volver a la Página Principal del formulario </a>");
-            respuesta.println("<html>");
+            respuesta.println("<body>");           
+            respuesta.println("<div class='container'>");
+             respuesta.println("<br><h1>Gracias por registrarSE </h1><br>");  
+            respuesta.println("<form name='nombre'>");
+            respuesta.println("<div class='container-lg d-flex'> <a href='index.html' class=\"btn btn-success ml-auto\">Registrar Nuevo</a></div><br>");
+            respuesta.println("<table class=\"table table-hover table-striped\">");   
+            respuesta.println("<thead><tr> <th scope=\"col\">CODIGO </th> <th scope=\"col\">NOMBRE </th>\n" +
+                                "<th scope=\"col\">CORREO</th></thead>");  
+            respuesta.println("<tbody>");
+            for (int i = 0; i < alumnosRegistrados.length; i++){
+                    if(!alumnosRegistrados[i].getCodigo().isEmpty()){
+                       respuesta.println("<tr><td>" + alumnosRegistrados[i].getCodigo()+ "</td>");
+                       respuesta.println("<td>" + alumnosRegistrados[i].getNombre() + "</td>");
+                       respuesta.println("<td>" + alumnosRegistrados[i].getCorreo()+ "</td>");
+                       
+                    }
+                }
+            respuesta.println("</tbody></table>");
+            respuesta.println("</div>");
+            respuesta.println("</form>");
             respuesta.println("</body>");
             respuesta.println("</html>");
-            
         }
-     
-   }
-
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -1,10 +1,3 @@
-window.onload=function(){
-    //let suma = 5+10;
-     //alert(suma);
-}
-
-
-
 function enviarFormularioOpcion2(){
 	const XHR = new XMLHttpRequest();
 	  var formData = new FormData(document.getElementById('contact-form'));

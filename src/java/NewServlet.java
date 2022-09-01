@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author JP
- */
+
 @WebServlet(urlPatterns = {"/NewServlet"})
 public class NewServlet extends HttpServlet {
     Alumno alumno;
@@ -55,7 +52,7 @@ public class NewServlet extends HttpServlet {
             respuesta.println("</head>");
             respuesta.println("<body>");           
             respuesta.println("<div class='container'>");
-             respuesta.println("<br><h1>Gracias por registrarSE </h1><br>");  
+             respuesta.println("<br><h1>Gracias por registrarse </h1><br>");  
             respuesta.println("<form name='nombre'>");
             respuesta.println("<div class='container-lg d-flex'> <a href='index.html' class=\"btn btn-success ml-auto\">Registrar Nuevo</a></div><br>");
             respuesta.println("<table class=\"table table-hover table-striped\">");   
